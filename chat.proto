@@ -1,0 +1,5 @@
+message Chat {
+  optional string name = 1;
+  optional string text = 2;
+  optional string time = 3;
+}
