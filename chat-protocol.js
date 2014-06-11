@@ -11,7 +11,11 @@ function ChatProtocol(name, wire) {
   wire = IntegrityProto.Corrupt(0.3, wire)
   wire = IntegrityProto('sha1', ChatMessage, wire)
   wire.incoming.on('invalid', function(obj) {
-    console.log('>> caught bad packet <<')
+    this.push({
+      name: "sys",
+      time: (new Date()).toISOString(),
+      text: ">> caught bad packet <<"
+    })
   })
 
   wire = transDuplex.obj(chatEncode, wire, chatDecode) // the chat
