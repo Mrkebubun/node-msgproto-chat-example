@@ -8,8 +8,8 @@ module.exports = ChatProtocol
 
 function ChatProtocol(name, wire) {
   wire = WireProtocol(IntegrityProto.Frame, wire)
-  wire = IntegrityProto.Corrupt(0.3, wire)
-  wire = IntegrityProto('sha1', ChatMessage, wire)
+  wire = IntegrityProto.Corrupt(wire, {probability: 0.3})
+  wire = IntegrityProto(wire, {payloadType: ChatMessage})
   wire.incoming.on('invalid', function(obj) {
     this.push({
       name: "sys",
